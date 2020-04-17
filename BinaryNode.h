@@ -12,17 +12,18 @@ private:
 public:
 	BinaryNode();
 	BinaryNode( ItemType& newItem );
-	BinaryNode( ItemType& newItem, BinaryNode<ItemType>* lPtr );
 	BinaryNode( ItemType& newItem, BinaryNode<ItemType>* lPtr, BinaryNode<ItemType>* rPtr );
 	virtual ~BinaryNode();
 
-	bool addItem(ItemType& newItem);
+	bool setItem(ItemType& newItem);
 	void setLeft(BinaryNode<ItemType>* lPtr);
 	void setRight(BinaryNode<ItemType>* rPtr);
 
-	ItemType getItem();
+	ItemType getItem()const;
 	BinaryNode<ItemType>* getLeft();
 	BinaryNode<ItemType>* getRight();
+
+	bool isLeaf()const;
 
 };
 

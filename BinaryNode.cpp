@@ -12,13 +12,6 @@ BinaryNode<ItemType>::BinaryNode( ItemType& newItem ):bNodeItem(newItem)
 }
 
 template <class ItemType>
-BinaryNode<ItemType>::BinaryNode( ItemType& newItem, BinaryNode<ItemType>* lPtr ):bNodeItem(newItem),
-																					leftPtr(lPtr)
-{
-
-}
-
-template <class ItemType>
 BinaryNode<ItemType>::BinaryNode( ItemType& newItem, 
 									BinaryNode<ItemType>* lPtr,
 									BinaryNode<ItemType>* rPtr ):bNodeItem(newItem),
@@ -33,7 +26,7 @@ BinaryNode<ItemType>::BinaryNode( ItemType& newItem,
 // }
 
 template <class ItemType>
-bool BinaryNode<ItemType>::addItem(ItemType& newItem)
+bool BinaryNode<ItemType>::setItem(ItemType& newItem)
 {
 	bNodeItem = newItem;
 	return true;
@@ -52,7 +45,7 @@ void BinaryNode<ItemType>::setRight(BinaryNode<ItemType>* rPtr)
 }
 
 template <class ItemType>
-ItemType BinaryNode<ItemType>::getItem()
+ItemType BinaryNode<ItemType>::getItem()const
 {
 	return bNodeItem;
 }
@@ -67,4 +60,10 @@ template <class ItemType>
 BinaryNode<ItemType>* BinaryNode<ItemType>::getRight()
 {
 	return rightPtr;
+}
+
+template <class ItemType>
+bool BinaryNode<ItemType>::isLeaf()const
+{
+	return (leftPtr == nullptr)&&(rightPtr == nullptr);
 }
