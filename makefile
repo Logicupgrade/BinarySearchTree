@@ -36,11 +36,11 @@ BTreeTraversal.o : BTreeTraversal.cpp BinaryNode.cpp #EventCardPQ.cpp PriorityQu
 # PriorityQueue.o : PriorityQueue.cpp LinkedQueue.cpp LinkedList.cpp Node.cpp
 # 	$(CC) $(CFLAGS)  PriorityQueue.cpp
 
-# LinkedQueue.o : LinkedQueue.cpp LinkedList.cpp Node.cpp
-# 	$(CC) $(CFLAGS)  LinkedQueue.cpp
+BinaryNodeTree.o : BinaryNodeTree.cpp BinaryTreeInterface.cpp BinaryNode.cpp
+	$(CC) $(CFLAGS)  BinaryNodeTree.cpp
 
-# LinkedList.o : LinkedList.cpp Node.cpp
-# 	$(CC) $(CFLAGS)  LinkedList.cpp
+BinaryTreeInterface.o : BinaryTreeInterface.cpp
+	$(CC) $(CFLAGS)  BinaryTreeInterface.cpp
 	
 BinaryNode.o : BinaryNode.cpp
 	$(CC) $(CFLAGS)  BinaryNode.cpp
