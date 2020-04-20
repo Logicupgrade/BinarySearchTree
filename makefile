@@ -4,10 +4,10 @@ CFLAGS = -Wall -c $(DEBUG)
 LFLAGS = -Wall $(DEBUG) 
 
 #links o files
-BTreeTraversal : BTreeTraversal.o BinaryNode.o #EventCardPQ.o PriorityQueue.o LinkedQueue.o LinkedList.o 
+BTreeTraversal : BTreeTraversal.o BinarySearchTree.o BinaryNode.o #EventCardPQ.o PriorityQueue.o LinkedQueue.o LinkedList.o 
 	$(CC) $(LFLAGS)  BTreeTraversal.o -o BTreeTraversal
 #Creates Driver o file
-BTreeTraversal.o : BTreeTraversal.cpp BinaryNode.cpp #EventCardPQ.cpp PriorityQueue.cpp LinkedQueue.cpp LinkedList.cpp 
+BTreeTraversal.o : BTreeTraversal.cpp BinarySearchTree.cpp BinaryNode.cpp #EventCardPQ.cpp PriorityQueue.cpp LinkedQueue.cpp LinkedList.cpp 
 	$(CC) $(CFLAGS)  BTreeTraversal.cpp
 
 # *******Testing PriorityQueue************************
@@ -36,8 +36,8 @@ BTreeTraversal.o : BTreeTraversal.cpp BinaryNode.cpp #EventCardPQ.cpp PriorityQu
 # PriorityQueue.o : PriorityQueue.cpp LinkedQueue.cpp LinkedList.cpp Node.cpp
 # 	$(CC) $(CFLAGS)  PriorityQueue.cpp
 
-BinaryNodeTree.o : BinaryNodeTree.cpp BinaryTreeInterface.cpp BinaryNode.cpp
-	$(CC) $(CFLAGS)  BinaryNodeTree.cpp
+BinarySearchTree.o : BinarySearchTree.cpp BinaryTreeInterface.cpp BinaryNode.cpp
+	$(CC) $(CFLAGS)  BinarySearchTree.cpp
 
 BinaryTreeInterface.o : BinaryTreeInterface.cpp
 	$(CC) $(CFLAGS)  BinaryTreeInterface.cpp
