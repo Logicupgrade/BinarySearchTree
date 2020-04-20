@@ -3,29 +3,37 @@
 
 bool BinaryNodeTree<ItemType>::isEmpty()
 {
-	return true;
+	return (numNodes == 0);
 }
 
 int BinaryNodeTree<ItemType>::getHeight()
 {
-	return 0;
+	return treeHeight;
 }
 
 int BinaryNodeTree<ItemType>::getNumberOfNodes()
 {
-	return 0;
+	return numNodes;
 }
 
 ItemType BinaryNodeTree<ItemType>::getRootData()
 {
-	return rootNode->getItem();
+	return rootNodePtr->getItem();
 }
 
 void BinaryNodeTree<ItemType>::setRootData(const ItemType& newData)
 {
-
+	if(numNodes > 0)
+	{
+		rootNodePtr->setItem(newData);
+	}
+	else
+	{
+		add(newData);
+	}
 }
 
+//***start here
 bool BinaryNodeTree<ItemType>::add(const ItemType& newData)
 {
 	return true;
@@ -51,17 +59,40 @@ bool BinaryNodeTree<ItemType>::contains(const ItemType& anEntry)
 	return true;
 }
 
-void BinaryNodeTree<ItemType>::preorderTraverse(void visit(ItemType&))
+// void BinaryNodeTree<ItemType>::preorderTraverse(void visit(ItemType&))
+// {
+// 	//if (!empty)
+// 	//visit root
+// 	//preOrder(left subtree)
+// 	//preOrder(right subtree)
+// }
+
+// void BinaryNodeTree<ItemType>::inorderTraverse(void visit(ItemType&))
+// {
+// 	//if (!empty)
+// 	//inOrder(left subtree)
+// 	//visit root
+// 	//inOrder(right subtree)
+// }
+
+// void BinaryNodeTree<ItemType>::postorderTraverse(void visit(ItemType&))
+// {
+// 	//if (!empty)
+// 	//postOrder(left subtree)
+// 	//postOrder(right subtree)
+// 	//visit root
+// }
+
+//-1 = preorder, 0 = inorder, 1 = postorder
+void BinaryNodeTree<ItemType>::traverse(void visit(ItemType&), int traverseType)
 {
-
-}
-
-void BinaryNodeTree<ItemType>::inorderTraverse(void visit(ItemType&))
-{
-
-}
-
-void BinaryNodeTree<ItemType>::postorderTraverse(void visit(ItemType&))
-{
-
+	//if (!isEmpty)
+		//if(traverseType == -1)
+			//visit root
+		//traverse(left subtree)
+		//if(traverseType == 0)
+			//visit root
+		//traverse(right subtree)
+		//if(traverseType == 1)
+			//visit root
 }

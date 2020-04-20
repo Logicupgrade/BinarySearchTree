@@ -15,9 +15,11 @@ public:
 	virtual void clear() = 0;
 	virtual ItemType getEntry(const ItemType& anEntry) const = 0;
 	virtual bool contains(const ItemType& anEntry)const = 0;
-	virtual void preorderTraverse(void visit(ItemType&))const = 0;
-	virtual void inorderTraverse(void visit(ItemType&))const = 0;
-	virtual void postorderTraverse(void visit(ItemType&))const = 0;
+	// virtual void preorderTraverse(void visit(ItemType&))const = 0;
+	// virtual void inorderTraverse(void visit(ItemType&))const = 0;
+	// virtual void postorderTraverse(void visit(ItemType&))const = 0;
+	//-1 = preorder, 0 = inorder, 1 = postorder
+	virtual void traverse(void visit(ItemType&), int traverseType)const = 0;
 };
 
 #endif

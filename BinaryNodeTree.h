@@ -9,7 +9,9 @@ template <class ItemType>
 class BinaryNodeTree: public BinaryTreeInterface<ItemType>
 {
 private:
-	BinaryNode<ItemType>* rootNode;
+	int treeHeight;
+	int numNodes;
+	BinaryNode<ItemType>* rootNodePtr;
 public:
 	// bool isEmpty();
 	// int getHeight();
