@@ -1,12 +1,24 @@
 
 #include "BinarySearchTree.h"
 
+//returns where it is or where it would be
 template<class ItemType>
-BinaryNode<ItemType>* BinarySearchTree<ItemType>::search(ItemType& value)
-{
-	//start with root
+BinaryNode<ItemType>* BinarySearchTree<ItemType>::search(ItemType& value, BinaryNode<ItemType>* currentRootPtr )
+{ 
 	//compare
+	if( currentRootPtr->getItem() == value || currentRootPtr == nullptr )
+	{
+		return currentRootPtr;
+	}
 	//search right or left
+	else if(value < currentRootPtr->getItem() )
+	{
+		currentRootPtr = search( value, currentRootPtr->getLeft() );
+	}
+	else
+	{
+		currentRootPtr = search( value, currentRootPtr->getRight() );
+	}
 }
 
 template<class ItemType>
@@ -51,6 +63,18 @@ void BinarySearchTree<ItemType>::setRootData(const ItemType& newData)
 template<class ItemType>
 bool BinarySearchTree<ItemType>::add(const ItemType& newData)
 {
+	BinaryNode<ItemType>* tempPtr = search(newData,rootNodePtr);
+
+	if(tempPtr == nullptr)
+	{
+
+	}
+	else
+	{
+		cout<<"found same value"<<endl;
+		return false
+	}
+	
 	return true;
 }
 

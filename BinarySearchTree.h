@@ -12,7 +12,7 @@ private:
 	int treeHeight;
 	int numNodes;
 	BinaryNode<ItemType>* rootNodePtr;
-	BinaryNode<ItemType>* search(ItemType& value);
+	BinaryNode<ItemType>* search(ItemType& value, BinaryNode<ItemType>* currentRootPtr );
 
 public:
 	bool isEmpty()const;
