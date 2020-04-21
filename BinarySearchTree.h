@@ -15,6 +15,9 @@ private:
 	BinaryNode<ItemType>* search(const ItemType& value, 
 									BinaryNode<ItemType>* currentRootPtr );
 
+	//-1 = preorder, 0 = inorder, 1 = postorder
+	void traverse(void visit(ItemType&), BinaryNode<ItemType>* currentRoot, int traverseType)const;
+
 public:
 	BinarySearchTree();
 	BinarySearchTree(const ItemType& newData);
@@ -32,11 +35,11 @@ public:
 	void clear();
 	ItemType getEntry(const ItemType& anEntry) const;
 	bool contains(const ItemType& anEntry)const;
-	// void preorderTraverse(void visit(ItemType&))const;
-	// void inorderTraverse(void visit(ItemType&))const;
-	// void postorderTraverse(void visit(ItemType&))const;
-	//-1 = preorder, 0 = inorder, 1 = postorder
-	void traverse(void visit(ItemType&), int traverseType)const;
+	void preorderTraverse( void visit(ItemType&) )const;
+	void inorderTraverse( void visit(ItemType&) )const;
+	void postorderTraverse( void visit(ItemType&) )const;
+
+	
 
 };
 

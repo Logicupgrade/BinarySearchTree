@@ -48,6 +48,52 @@ BinaryNode<ItemType>* BinarySearchTree<ItemType>::search(const ItemType& value, 
 	return currentRootPtr;
 }
 
+//-1 = preorder, 0 = inorder, 1 = postorder
+template<class ItemType>
+void BinarySearchTree<ItemType>::traverse(void visit(ItemType&), BinaryNode<ItemType>* currentRoot, int traverseType)const
+{
+	if ( !isEmpty() )
+	{
+		if(currentRoot != nullptr)
+		{
+			//creating lvalue for client function parameter
+			ItemType theItem = currentRoot->getItem();
+
+			//visit if preorder
+			if(traverseType == -1)
+			{
+				
+				visit(theItem);
+			}
+
+			//recursive call to left tree
+			traverse( visit, currentRoot->getLeft(), traverseType );
+
+			//visit if inorder
+			if(traverseType == 0)
+			{
+				visit(theItem);
+			}
+
+			//recursive call to right tree
+			traverse( visit, currentRoot->getRight(), traverseType );
+		
+			//visit if postorder
+			if(traverseType == 1)
+			{
+				visit(theItem);
+			}
+		}
+		
+	}
+
+	else
+	{
+		cout<<"Tree's empty fool"<<endl;
+	}
+		
+}
+
 template<class ItemType>
 BinarySearchTree<ItemType>::BinarySearchTree()
 {
@@ -119,7 +165,6 @@ void BinarySearchTree<ItemType>::setRootData(const ItemType& newData)
 	}
 }
 
-//***start here
 
 template<class ItemType>
 bool BinarySearchTree<ItemType>::add(const ItemType& newData)
@@ -188,25 +233,20 @@ bool BinarySearchTree<ItemType>::contains(const ItemType& anEntry)const
 	return true;
 }
 
-//-1 = preorder, 0 = inorder, 1 = postorder
+template<class ItemType>
+void BinarySearchTree<ItemType>::preorderTraverse( void visit(ItemType&) )const
+{
+	traverse(visit, rootNodePtr, -1);
+}
 
 template<class ItemType>
-void BinarySearchTree<ItemType>::traverse(void visit(ItemType&), int traverseType)const
+void BinarySearchTree<ItemType>::inorderTraverse( void visit(ItemType&) )const
 {
-	//if (!isEmpty)
-	//{
-		//if(traverseType == -1)
-		//{
-			//visit node
-			//visit(ItemType);
-		//}
-		//traverse(left subtree)
+	traverse(visit, rootNodePtr, 0);
+}
 
-		//if(traverseType == 0)
-			//visit node
-		//traverse(right subtree)
-		//if(traverseType == 1)
-			//visit node
-	//}
-		
+template<class ItemType>
+void BinarySearchTree<ItemType>::postorderTraverse( void visit(ItemType&) )const
+{
+	traverse(visit, rootNodePtr, 1);
 }

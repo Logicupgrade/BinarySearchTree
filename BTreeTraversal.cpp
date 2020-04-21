@@ -4,6 +4,8 @@
 
 using namespace std;
 
+void visit( int intVal );
+
 int main()
 {
 	BinarySearchTree<int> bTree(5);
@@ -14,5 +16,13 @@ int main()
 	bTree.add(21);
 	bTree.add(9);
 	cout<<"count: "<<bTree.getNumberOfNodes()<<endl;
+
+	bTree.inorderTraverse(visit);//displayInt);
+	cout<<endl;
 	return 0;
+}
+
+void visit( int intVal )
+{
+	cout<<intVal<<',';
 }
