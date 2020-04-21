@@ -1,25 +1,80 @@
 
 #include "BinarySearchTree.h"
+#include <iostream>
 
-//returns where it is or where it would be
+using namespace std;
+
+//returns ptr to leaf node's child position or a ptr to duplicate
 template<class ItemType>
-BinaryNode<ItemType>* BinarySearchTree<ItemType>::search(ItemType& value, BinaryNode<ItemType>* currentRootPtr )
+BinaryNode<ItemType>* BinarySearchTree<ItemType>::search(const ItemType& value, BinaryNode<ItemType>* currentRootPtr )
 { 
+
 	//compare
-	if( currentRootPtr->getItem() == value || currentRootPtr == nullptr )
+	if( isEmpty() )
+	{
+
+		return nullptr;
+	}
+
+	else if ( currentRootPtr->getItem() == value )
 	{
 		return currentRootPtr;
 	}
+
 	//search right or left
 	else if(value < currentRootPtr->getItem() )
 	{
-		currentRootPtr = search( value, currentRootPtr->getLeft() );
+
+		if(currentRootPtr->getLeft() == nullptr)
+		{
+		}
+		else
+		{
+			currentRootPtr = search( value, currentRootPtr->getLeft() );
+		}
 	}
 	else
 	{
-		currentRootPtr = search( value, currentRootPtr->getRight() );
+		if(currentRootPtr->getRight() == nullptr)
+		{	
+		}
+		else
+		{
+			currentRootPtr = search( value, currentRootPtr->getRight() );
+		}
 	}
+	
+
+	return currentRootPtr;
 }
+
+template<class ItemType>
+BinarySearchTree<ItemType>::BinarySearchTree()
+{
+
+}
+
+template<class ItemType>
+BinarySearchTree<ItemType>::BinarySearchTree(const ItemType& newData)
+{
+	add(newData);
+}
+
+template<class ItemType>
+BinarySearchTree<ItemType>::BinarySearchTree(const ItemType& newData, 
+												BinaryNode<ItemType>* lChild, 
+												BinaryNode<ItemType>* rChild)
+{
+	add(newData);
+	rootNodePtr->setLeft(lChild);
+	rootNodePtr->setRight(rChild);
+}
+
+template<class ItemType>
+BinarySearchTree<ItemType>::~BinarySearchTree()
+{
+}
+
 
 template<class ItemType>
 bool BinarySearchTree<ItemType>::isEmpty()const
@@ -42,13 +97,19 @@ int BinarySearchTree<ItemType>::getNumberOfNodes()const
 template<class ItemType>
 ItemType BinarySearchTree<ItemType>::getRootData()const
 {
+	if(isEmpty())
+	{
+		cout<<"No root data"<<endl;
+		exit(0);
+	}
+
 	return rootNodePtr->getItem();
 }
 
 template<class ItemType>
 void BinarySearchTree<ItemType>::setRootData(const ItemType& newData)
 {
-	if(numNodes > 0)
+	if( !isEmpty() )
 	{
 		rootNodePtr->setItem(newData);
 	}
@@ -65,17 +126,42 @@ bool BinarySearchTree<ItemType>::add(const ItemType& newData)
 {
 	BinaryNode<ItemType>* tempPtr = search(newData,rootNodePtr);
 
-	if(tempPtr == nullptr)
-	{
+	bool added = false;
 
+	if( isEmpty() )
+	{
+		rootNodePtr = new BinaryNode<ItemType>(newData);
+
+		numNodes++;
+		
+		added = true;
+	}
+	else if(tempPtr == nullptr)
+	{
+		cout<<"There's a duplicate value";
+		added = false;
 	}
 	else
 	{
-		cout<<"found same value"<<endl;
-		return false
+		BinaryNode<ItemType>* newNodePtr = new BinaryNode<ItemType>(newData);
+
+		if( newData < tempPtr->getItem() )
+		{
+			tempPtr->setLeft(newNodePtr);
+		}
+		else
+		{
+			tempPtr->setRight(newNodePtr);
+		}
+
+		newNodePtr = nullptr;
+
+		numNodes++;
+
+		added = true;
 	}
 	
-	return true;
+	return added;
 }
 
 template<class ItemType>
@@ -93,7 +179,7 @@ void BinarySearchTree<ItemType>::clear()
 template<class ItemType>
 ItemType BinarySearchTree<ItemType>::getEntry(const ItemType& anEntry)const
 {
-	return rootNode->getItem();
+	return rootNodePtr->getItem();
 }
 
 template<class ItemType>
@@ -108,12 +194,19 @@ template<class ItemType>
 void BinarySearchTree<ItemType>::traverse(void visit(ItemType&), int traverseType)const
 {
 	//if (!isEmpty)
+	//{
 		//if(traverseType == -1)
-			//visit root
+		//{
+			//visit node
+			//visit(ItemType);
+		//}
 		//traverse(left subtree)
+
 		//if(traverseType == 0)
-			//visit root
+			//visit node
 		//traverse(right subtree)
 		//if(traverseType == 1)
-			//visit root
+			//visit node
+	//}
+		
 }

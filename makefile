@@ -36,11 +36,11 @@ BTreeTraversal.o : BTreeTraversal.cpp BinarySearchTree.cpp BinaryNode.cpp #Event
 # PriorityQueue.o : PriorityQueue.cpp LinkedQueue.cpp LinkedList.cpp Node.cpp
 # 	$(CC) $(CFLAGS)  PriorityQueue.cpp
 
-BinarySearchTree.o : BinarySearchTree.cpp BinaryTreeInterface.cpp BinaryNode.cpp
+BinarySearchTree.o : BinarySearchTree.cpp BinaryNode.cpp
 	$(CC) $(CFLAGS)  BinarySearchTree.cpp
 
-BinaryTreeInterface.o : BinaryTreeInterface.cpp
-	$(CC) $(CFLAGS)  BinaryTreeInterface.cpp
+# BinaryTreeInterface.o : BinaryTreeInterface.cpp
+# 	$(CC) $(CFLAGS)  BinaryTreeInterface.cpp
 	
 BinaryNode.o : BinaryNode.cpp
 	$(CC) $(CFLAGS)  BinaryNode.cpp

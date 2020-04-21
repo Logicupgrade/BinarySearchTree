@@ -7,12 +7,12 @@ BinaryNode<ItemType>::BinaryNode()
 }
 
 template <class ItemType>
-BinaryNode<ItemType>::BinaryNode( ItemType& newItem ):bNodeItem(newItem)
+BinaryNode<ItemType>::BinaryNode( const ItemType& newItem ):bNodeItem(newItem)
 {
 }
 
 template <class ItemType>
-BinaryNode<ItemType>::BinaryNode( ItemType& newItem, 
+BinaryNode<ItemType>::BinaryNode( const ItemType& newItem, 
 									BinaryNode<ItemType>* lPtr,
 									BinaryNode<ItemType>* rPtr ):bNodeItem(newItem),
 																	leftPtr(lPtr),
@@ -20,13 +20,13 @@ BinaryNode<ItemType>::BinaryNode( ItemType& newItem,
 {
 }
 
-// template <class ItemType>
-// ~BinaryNode<ItemType>::BinaryNode()
-// {
-// }
+template <class ItemType>
+BinaryNode<ItemType>::~BinaryNode()
+{
+}
 
 template <class ItemType>
-bool BinaryNode<ItemType>::setItem(ItemType& newItem)
+bool BinaryNode<ItemType>::setItem(const ItemType& newItem)
 {
 	bNodeItem = newItem;
 	return true;

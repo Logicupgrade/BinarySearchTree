@@ -11,11 +11,11 @@ private:
 	BinaryNode<ItemType>* rightPtr = nullptr;
 public:
 	BinaryNode();
-	BinaryNode( ItemType& newItem );
-	BinaryNode( ItemType& newItem, BinaryNode<ItemType>* lPtr, BinaryNode<ItemType>* rPtr );
+	BinaryNode( const ItemType& newItem );
+	BinaryNode( const ItemType& newItem, BinaryNode<ItemType>* lPtr, BinaryNode<ItemType>* rPtr );
 	virtual ~BinaryNode();
 
-	bool setItem(ItemType& newItem);
+	bool setItem(const ItemType& newItem);
 	void setLeft(BinaryNode<ItemType>* lPtr);
 	void setRight(BinaryNode<ItemType>* rPtr);
 

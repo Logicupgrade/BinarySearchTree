@@ -9,12 +9,19 @@ template <class ItemType>
 class BinarySearchTree: public BinaryTreeInterface<ItemType>
 {
 private:
-	int treeHeight;
-	int numNodes;
-	BinaryNode<ItemType>* rootNodePtr;
-	BinaryNode<ItemType>* search(ItemType& value, BinaryNode<ItemType>* currentRootPtr );
+	int treeHeight = 0;
+	int numNodes = 0;
+	BinaryNode<ItemType>* rootNodePtr = nullptr;
+	BinaryNode<ItemType>* search(const ItemType& value, 
+									BinaryNode<ItemType>* currentRootPtr );
 
 public:
+	BinarySearchTree();
+	BinarySearchTree(const ItemType& newData);
+	BinarySearchTree(const ItemType& newData, 
+								BinaryNode<ItemType>* lChild, 
+								BinaryNode<ItemType>* rChild);
+	~BinarySearchTree();
 	bool isEmpty()const;
 	int getHeight()const;
 	int getNumberOfNodes()const;
