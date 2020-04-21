@@ -2,6 +2,14 @@
 #include "BinarySearchTree.h"
 
 template<class ItemType>
+BinaryNode<ItemType>* BinarySearchTree<ItemType>::search(ItemType& value)
+{
+	//start with root
+	//compare
+	//search right or left
+}
+
+template<class ItemType>
 bool BinarySearchTree<ItemType>::isEmpty()const
 {
 	return (numNodes == 0);

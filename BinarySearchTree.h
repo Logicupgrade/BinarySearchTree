@@ -12,6 +12,8 @@ private:
 	int treeHeight;
 	int numNodes;
 	BinaryNode<ItemType>* rootNodePtr;
+	BinaryNode<ItemType>* search(ItemType& value);
+
 public:
 	bool isEmpty()const;
 	int getHeight()const;
