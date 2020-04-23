@@ -4,7 +4,7 @@
 
 using namespace std;
 
-//returns ptr to leaf node's child position or a ptr to duplicate
+//returns ptr to leaf node's child position or a ptr to BinaryNode with value
 template<class ItemType>
 BinaryNode<ItemType>* BinarySearchTree<ItemType>::search(const ItemType& value, BinaryNode<ItemType>* currentRootPtr )
 { 
@@ -30,6 +30,13 @@ BinaryNode<ItemType>* BinarySearchTree<ItemType>::search(const ItemType& value, 
 		}
 		else
 		{
+			//if child is value store currentRootPtr
+			if( currentRootPtr->getLeft()->getItem() == value )
+			{
+				oneUp = currentRootPtr;
+				oneUpIsLeft = true;
+			}
+
 			currentRootPtr = search( value, currentRootPtr->getLeft() );
 		}
 	}
@@ -40,6 +47,12 @@ BinaryNode<ItemType>* BinarySearchTree<ItemType>::search(const ItemType& value, 
 		}
 		else
 		{
+			//if child is value store currentRootPtr
+			if( currentRootPtr->getRight()->getItem() == value )
+			{
+				oneUp = currentRootPtr;
+			}
+
 			currentRootPtr = search( value, currentRootPtr->getRight() );
 		}
 	}
@@ -95,6 +108,27 @@ void BinarySearchTree<ItemType>::traverse(void visit(ItemType&), BinaryNode<Item
 }
 
 template<class ItemType>
+int BinarySearchTree<ItemType>::getHeightHelper(BinaryNode<ItemType>* subTreePtr)const
+{
+	if(subTreePtr == nullptr)
+	{
+		return 0;
+	}
+	else
+	{
+		if( getHeightHelper( subTreePtr->getLeft() ) > getHeightHelper( subTreePtr->getRight() ) )
+		{
+			return 1+getHeightHelper( subTreePtr->getLeft() );
+		}
+
+		else
+		{
+			return 1+getHeightHelper( subTreePtr->getRight() );
+		}
+	}
+}
+
+template<class ItemType>
 BinarySearchTree<ItemType>::BinarySearchTree()
 {
 
@@ -131,7 +165,8 @@ bool BinarySearchTree<ItemType>::isEmpty()const
 template<class ItemType>
 int BinarySearchTree<ItemType>::getHeight()const
 {
-	return treeHeight;
+
+	return getHeightHelper(rootNodePtr);
 }
 
 template<class ItemType>
@@ -212,6 +247,62 @@ bool BinarySearchTree<ItemType>::add(const ItemType& newData)
 template<class ItemType>
 bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 {
+	bool removed = false;
+	BinaryNode<ItemType>* tempBNPtr = nullptr;
+
+	if(isEmpty())
+	{
+		return removed;
+	}
+
+	tempBNPtr = search(data, rootNodePtr);
+	// cout<<"dataptr: "<<tempBNPtr->getItem()<<endl;
+
+	if(tempBNPtr == nullptr)
+	{
+		return removed;
+	}
+	// cout<<"dataisLeaf: "<<tempBNPtr->isLeaf()<<endl;
+	
+	//if Node is a leaf
+	if( tempBNPtr->isLeaf() )
+	{
+		// cout<<"parent: "<<oneUp->getItem()<<endl;
+		if(oneUpIsLeft)
+		{
+			oneUp->setLeft(nullptr);
+		}
+		else
+		{
+			oneUp->setRight(nullptr);
+		}
+
+		delete tempBNPtr;
+		tempBNPtr = nullptr;
+
+		numNodes--;
+	}
+
+	//if Node has only left child
+	else if ( tempBNPtr->getLeft() != nullptr && tempBNPtr->getRight() == nullptr )
+	{
+
+	}
+
+	//if Node has only right child
+	else if ( tempBNPtr->getLeft() == nullptr && tempBNPtr->getRight() != nullptr )
+	{
+		
+	}
+
+	//if Node has both children
+	else if ( tempBNPtr->getLeft() != nullptr && tempBNPtr->getRight() != nullptr )
+	{
+		
+	}
+	
+
+
 	return true;
 }
 
@@ -228,9 +319,10 @@ ItemType BinarySearchTree<ItemType>::getEntry(const ItemType& anEntry)const
 }
 
 template<class ItemType>
-bool BinarySearchTree<ItemType>::contains(const ItemType& anEntry)const
+bool BinarySearchTree<ItemType>::contains(const ItemType& anEntry)
 {
-	return true;
+	BinaryNode<ItemType>* tempBNPtr = search(anEntry, rootNodePtr);
+	return ( tempBNPtr != nullptr );
 }
 
 template<class ItemType>

@@ -9,14 +9,16 @@ template <class ItemType>
 class BinarySearchTree: public BinaryTreeInterface<ItemType>
 {
 private:
-	int treeHeight = 0;
 	int numNodes = 0;
 	BinaryNode<ItemType>* rootNodePtr = nullptr;
+	BinaryNode<ItemType>* oneUp = nullptr;
+	bool oneUpIsLeft = false;
 	BinaryNode<ItemType>* search(const ItemType& value, 
 									BinaryNode<ItemType>* currentRootPtr );
 
 	//-1 = preorder, 0 = inorder, 1 = postorder
 	void traverse(void visit(ItemType&), BinaryNode<ItemType>* currentRoot, int traverseType)const;
+	int getHeightHelper(BinaryNode<ItemType>* subTreePtr)const;
 
 public:
 	BinarySearchTree();
@@ -34,12 +36,10 @@ public:
 	bool remove(const ItemType& data);
 	void clear();
 	ItemType getEntry(const ItemType& anEntry) const;
-	bool contains(const ItemType& anEntry)const;
+	bool contains(const ItemType& anEntry);
 	void preorderTraverse( void visit(ItemType&) )const;
 	void inorderTraverse( void visit(ItemType&) )const;
 	void postorderTraverse( void visit(ItemType&) )const;
-
-	
 
 };
 
