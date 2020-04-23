@@ -129,6 +129,18 @@ int BinarySearchTree<ItemType>::getHeightHelper(BinaryNode<ItemType>* subTreePtr
 }
 
 template<class ItemType>
+BinaryNode<ItemType>* BinarySearchTree<ItemType>::mosLef(BinaryNode<ItemType>* nodeToGetLeft)
+{
+	if(nodeToGetLeft == nullptr)
+	{
+	}
+	else
+	{
+		return mosLef( nodeToGetLeft->getLeft() );
+	}
+}
+
+template<class ItemType>
 BinarySearchTree<ItemType>::BinarySearchTree()
 {
 
@@ -241,6 +253,9 @@ bool BinarySearchTree<ItemType>::add(const ItemType& newData)
 		added = true;
 	}
 	
+	//reset oneUp
+	oneUp = nullptr;
+
 	return added;
 }
 
@@ -255,6 +270,7 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 		return removed;
 	}
 
+	//tempBNPtr is node to delete or nullptr
 	tempBNPtr = search(data, rootNodePtr);
 	// cout<<"dataptr: "<<tempBNPtr->getItem()<<endl;
 
@@ -267,8 +283,18 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 	//if Node is a leaf
 	if( tempBNPtr->isLeaf() )
 	{
+		//if tree is only root node
+		if(tempBNPtr == rootNodePtr)
+		{
+			rootNodePtr = nullptr;
+			delete tempBNPtr;
+			tempBNPtr = nullptr;
+
+			numNodes--;
+			removed = true;
+		} 
 		// cout<<"parent: "<<oneUp->getItem()<<endl;
-		if(oneUpIsLeft)
+		else if(oneUpIsLeft)
 		{
 			oneUp->setLeft(nullptr);
 		}
@@ -281,29 +307,144 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 		tempBNPtr = nullptr;
 
 		numNodes--;
+		removed = true;
 	}
 
 	//if Node has only left child
 	else if ( tempBNPtr->getLeft() != nullptr && tempBNPtr->getRight() == nullptr )
 	{
+		//if root only has left node
+		if(tempBNPtr == rootNodePtr)
+		{
+			rootNodePtr = rootNodePtr->getLeft();
 
+			tempBNPtr->setLeft(nullptr);
+			
+			delete tempBNPtr;
+			
+			tempBNPtr = nullptr;
+			numNodes--;
+			removed = true;
+		}
+		else
+		{
+			oneUp->setLeft( tempBNPtr->getLeft() );
+
+			tempBNPtr->setLeft(nullptr);
+
+			delete tempBNPtr;
+
+			tempBNPtr = nullptr;
+			numNodes--;
+			removed = true;
+		}
+		
 	}
 
-	//if Node has only right child
+	//if found Node has only right child
 	else if ( tempBNPtr->getLeft() == nullptr && tempBNPtr->getRight() != nullptr )
 	{
-		
+		//if root only has right node
+		if(tempBNPtr == rootNodePtr)
+		{
+			rootNodePtr = rootNodePtr->getRight();
+			
+			tempBNPtr->setRight(nullptr);
+			delete tempBNPtr;
+
+			tempBNPtr = nullptr;
+			numNodes--;
+			removed = true;
+		}
+		else
+		{
+			oneUp->setRight( tempBNPtr->getRight() );
+
+			tempBNPtr->setRight(nullptr);
+
+			delete tempBNPtr;
+			
+			tempBNPtr = nullptr;
+			numNodes--;
+			removed = true;
+		}
 	}
 
-	//if Node has both children
+	//if found Node has both children
 	else if ( tempBNPtr->getLeft() != nullptr && tempBNPtr->getRight() != nullptr )
 	{
-		
+		BinaryNode<ItemType>* replacementNode = tempBNPtr->getRight();
+
+		//if right child has no left node
+		if( replacementNode->getLeft() == nullptr )
+		{
+
+			//replacementNode replaces node to delete
+			replacementNode->setLeft( tempBNPtr->getLeft() );
+
+			//node to delete is root
+			if (tempBNPtr == rootNodePtr)
+			{
+				rootNodePtr = replacementNode;
+			}
+
+			//node to delete is not root (node(s) above)
+			else
+			{
+				//parent of node to delete sets rightptr to replacementNode
+				oneUp->setRight( replacementNode );
+			}
+			
+			//release old roots ptrs 
+			tempBNPtr->setLeft(nullptr);
+			tempBNPtr->setRight(nullptr);
+
+			//delete old root node
+			delete tempBNPtr;
+
+			//housekeeping
+			tempBNPtr = nullptr;
+			replacementNode = nullptr;
+			numNodes--;
+			removed = true;
+	
+		}
+
+		// right child has at least 1 left node
+		else
+		{
+			//get right child's most left node
+			 replacementNode = mosLef(replacementNode);
+
+			//set node to delete's value to most right node's most left node
+			tempBNPtr->setItem( replacementNode->getItem() );
+
+			//if right most left node has at least 1 right child
+			if( !replacementNode->isLeaf() )
+			{	
+				//setting oneUp to parent of replacementNode
+				search( replacementNode->getItem(), rootNodePtr );
+
+				//set replacement parent left to replacement right before deleting
+				oneUp->setLeft( replacementNode->getRight() );
+			}
+			
+
+			delete replacementNode;
+
+			//housekeeping
+			tempBNPtr = nullptr;
+			replacementNode = nullptr;
+			numNodes--;
+			removed = true;
+
+		}
 	}
 	
+	//housekeeping
+	oneUp = nullptr;
 
-
-	return true;
+	return removed;
 }
 
 template<class ItemType>
@@ -322,6 +463,10 @@ template<class ItemType>
 bool BinarySearchTree<ItemType>::contains(const ItemType& anEntry)
 {
 	BinaryNode<ItemType>* tempBNPtr = search(anEntry, rootNodePtr);
+
+	//reset oneUp
+	oneUp = nullptr;
+
 	return ( tempBNPtr != nullptr );
 }
 

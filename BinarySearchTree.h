@@ -19,6 +19,7 @@ private:
 	//-1 = preorder, 0 = inorder, 1 = postorder
 	void traverse(void visit(ItemType&), BinaryNode<ItemType>* currentRoot, int traverseType)const;
 	int getHeightHelper(BinaryNode<ItemType>* subTreePtr)const;
+	BinaryNode<ItemType>* mosLef(BinaryNode<ItemType>* nodeToGetLeft);
 
 public:
 	BinarySearchTree();
