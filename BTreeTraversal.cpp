@@ -43,39 +43,39 @@ int main()
 	moneyTree.postorderTraverse(displayInt);
 	cout<<endl;
 
-	// BinarySearchTree<int> bTree(60);
-	// cout<<bTree.getRootData()<<endl;
-	// cout<<"count: "<<bTree.getNumberOfNodes()<<endl;
-	// bTree.add(20);
-	// bTree.add(70);
-	// bTree.add(10);
-	// bTree.add(40);
-	// bTree.add(30);
-	// bTree.add(50);
-	// cout<<"height"<<bTree.getHeight()<<endl;
-	// cout<<"count: "<<bTree.getNumberOfNodes()<<endl;
+	BinarySearchTree<int> bTree(60);
+	cout<<bTree.getRootData()<<endl;
+	cout<<"count: "<<bTree.getNumberOfNodes()<<endl;
+	bTree.add(20);
+	bTree.add(70);
+	bTree.add(10);
+	bTree.add(40);
+	bTree.add(30);
+	bTree.add(50);
+	cout<<"height"<<bTree.getHeight()<<endl;
+	cout<<"count: "<<bTree.getNumberOfNodes()<<endl;
 
-	// cout<<"preorder: ";
-	// bTree.preorderTraverse(displayInt);
-	// cout<<endl;
+	cout<<"preorder: ";
+	bTree.preorderTraverse(displayInt);
+	cout<<endl;
 
-	// cout<<"inorder: ";
-	// bTree.inorderTraverse(displayInt);
-	// cout<<endl;
+	cout<<"inorder: ";
+	bTree.inorderTraverse(displayInt);
+	cout<<endl;
 
-	// cout<<"postorder: ";
-	// bTree.postorderTraverse(displayInt);
-	// cout<<endl;
+	cout<<"postorder: ";
+	bTree.postorderTraverse(displayInt);
+	cout<<endl;
 
-	// cout<<"height"<<bTree.getHeight()<<endl;
-	// bTree.add(11);
-	// cout<<"height"<<bTree.getHeight()<<endl;
-	// bTree.add(12);
-	// cout<<"height"<<bTree.getHeight()<<endl;
+	cout<<"height"<<bTree.getHeight()<<endl;
+	bTree.add(11);
+	cout<<"height"<<bTree.getHeight()<<endl;
+	bTree.add(12);
+	cout<<"height"<<bTree.getHeight()<<endl;
 
-	// cout<<"count2: "<<bTree.getNumberOfNodes()<<endl;
-	// bTree.remove(12);
-	// cout<<"count3: "<<bTree.getNumberOfNodes()<<endl;
+	cout<<"count2: "<<bTree.getNumberOfNodes()<<endl;
+	bTree.clear();
+	cout<<"count3: "<<bTree.getNumberOfNodes()<<endl;
 
 
 	return 0;

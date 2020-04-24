@@ -51,6 +51,7 @@ BinaryNode<ItemType>* BinarySearchTree<ItemType>::search(const ItemType& value, 
 			if( currentRootPtr->getRight()->getItem() == value )
 			{
 				oneUp = currentRootPtr;
+				oneUpIsLeft = false;
 			}
 
 			currentRootPtr = search( value, currentRootPtr->getRight() );
@@ -131,8 +132,9 @@ int BinarySearchTree<ItemType>::getHeightHelper(BinaryNode<ItemType>* subTreePtr
 template<class ItemType>
 BinaryNode<ItemType>* BinarySearchTree<ItemType>::mosLef(BinaryNode<ItemType>* nodeToGetLeft)
 {
-	if(nodeToGetLeft == nullptr)
+	if(nodeToGetLeft->getLeft() == nullptr)
 	{
+		return nodeToGetLeft;
 	}
 	else
 	{
@@ -265,6 +267,9 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 	bool removed = false;
 	BinaryNode<ItemType>* tempBNPtr = nullptr;
 
+	cout<<"here"<<endl;
+
+
 	if(isEmpty())
 	{
 		return removed;
@@ -273,6 +278,8 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 	//tempBNPtr is node to delete or nullptr
 	tempBNPtr = search(data, rootNodePtr);
 	// cout<<"dataptr: "<<tempBNPtr->getItem()<<endl;
+	cout<<"left: "<<tempBNPtr->getLeft()<<endl;
+	cout<<"right: "<<tempBNPtr->getRight()<<endl;
 
 	if(tempBNPtr == nullptr)
 	{
@@ -292,6 +299,7 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 
 			numNodes--;
 			removed = true;
+			cout<<"here1"<<endl;
 		} 
 		// cout<<"parent: "<<oneUp->getItem()<<endl;
 		else if(oneUpIsLeft)
@@ -305,7 +313,6 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 
 		delete tempBNPtr;
 		tempBNPtr = nullptr;
-
 		numNodes--;
 		removed = true;
 	}
@@ -316,15 +323,16 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 		//if root only has left node
 		if(tempBNPtr == rootNodePtr)
 		{
+			cout<<"here2"<<endl;
 			rootNodePtr = rootNodePtr->getLeft();
 
 			tempBNPtr->setLeft(nullptr);
 			
 			delete tempBNPtr;
-			
 			tempBNPtr = nullptr;
 			numNodes--;
 			removed = true;
+			
 		}
 		else
 		{
@@ -333,7 +341,6 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 			tempBNPtr->setLeft(nullptr);
 
 			delete tempBNPtr;
-
 			tempBNPtr = nullptr;
 			numNodes--;
 			removed = true;
@@ -344,17 +351,19 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 	//if found Node has only right child
 	else if ( tempBNPtr->getLeft() == nullptr && tempBNPtr->getRight() != nullptr )
 	{
+
 		//if root only has right node
 		if(tempBNPtr == rootNodePtr)
 		{
 			rootNodePtr = rootNodePtr->getRight();
 			
 			tempBNPtr->setRight(nullptr);
-			delete tempBNPtr;
 
+			delete tempBNPtr;
 			tempBNPtr = nullptr;
 			numNodes--;
 			removed = true;
+			cout<<"here3"<<endl;
 		}
 		else
 		{
@@ -363,7 +372,6 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 			tempBNPtr->setRight(nullptr);
 
 			delete tempBNPtr;
-			
 			tempBNPtr = nullptr;
 			numNodes--;
 			removed = true;
@@ -374,7 +382,7 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 	else if ( tempBNPtr->getLeft() != nullptr && tempBNPtr->getRight() != nullptr )
 	{
 		BinaryNode<ItemType>* replacementNode = tempBNPtr->getRight();
-
+		cout<<"tempPtr: "<<replacementNode->getLeft()<<endl;
 		//if right child has no left node
 		if( replacementNode->getLeft() == nullptr )
 		{
@@ -386,6 +394,7 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 			if (tempBNPtr == rootNodePtr)
 			{
 				rootNodePtr = replacementNode;
+				cout<<"here4"<<endl;
 			}
 
 			//node to delete is not root (node(s) above)
@@ -412,16 +421,20 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 
 		// right child has at least 1 left node
 		else
-		{
+		{ 
+			cout<<"here5"<<endl;
+			//***** set parent left to nullllllll!
 			//get right child's most left node
 			 replacementNode = mosLef(replacementNode);
 
 			//set node to delete's value to most right node's most left node
 			tempBNPtr->setItem( replacementNode->getItem() );
 
+
 			//if right most left node has at least 1 right child
 			if( !replacementNode->isLeaf() )
 			{	
+
 				//setting oneUp to parent of replacementNode
 				search( replacementNode->getItem(), rootNodePtr );
 
@@ -438,6 +451,8 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 			numNodes--;
 			removed = true;
 
+			cout<<"here6"<<endl;
+
 		}
 	}
 	
@@ -450,7 +465,10 @@ bool BinarySearchTree<ItemType>::remove(const ItemType& data)
 template<class ItemType>
 void BinarySearchTree<ItemType>::clear()
 {
-
+	while(!isEmpty())
+	{
+		remove(rootNodePtr->getItem());
+	}
 }
 
 template<class ItemType>
