@@ -36,7 +36,7 @@ public:
 	bool add(const ItemType& newData);
 	bool remove(const ItemType& data);
 	void clear();
-	ItemType getEntry(const ItemType& anEntry) const;
+	ItemType getEntry(const ItemType& anEntry);
 	bool contains(const ItemType& anEntry);
 	void preorderTraverse( void visit(ItemType&) )const;
 	void inorderTraverse( void visit(ItemType&) )const;

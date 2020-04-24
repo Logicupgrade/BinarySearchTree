@@ -5,10 +5,12 @@
 #include <cstdlib>
 #include <time.h>
 #include <cmath>
+#include <fstream>
 
 using namespace std;
 
 void displayInt( int& intVal );
+void printIntFile( int& intVal );
 void randomizeData(int arrayPtr[], int arrSize);
 void swapForBalancedTree(int arrayPtr[], int arrSize, int maxVal);
 void swapInt(int& one, int& another);
@@ -25,7 +27,6 @@ int main()
 
 	for(int i=0;i<100;i++)
 	{
-		// cout<<"intArray["<<i<<"]: "<<intArray[i]<<endl;
 		moneyTree.add(intArray[i]);
 	}
 
@@ -33,50 +34,18 @@ int main()
 
 	cout<<"preorder: "<<endl;
 	moneyTree.preorderTraverse(displayInt);
+	// moneyTree.preorderTraverse(printIntFile);
 	cout<<endl;
 
 	cout<<"inorder: "<<endl;
 	moneyTree.inorderTraverse(displayInt);
+	// moneyTree.inorderTraverse(printIntFile);
 	cout<<endl;
 
 	cout<<"postorder: "<<endl;
 	moneyTree.postorderTraverse(displayInt);
+	// moneyTree.postorderTraverse(printIntFile);
 	cout<<endl;
-
-	BinarySearchTree<int> bTree(60);
-	cout<<bTree.getRootData()<<endl;
-	cout<<"count: "<<bTree.getNumberOfNodes()<<endl;
-	bTree.add(20);
-	bTree.add(70);
-	bTree.add(10);
-	bTree.add(40);
-	bTree.add(30);
-	bTree.add(50);
-	cout<<"height"<<bTree.getHeight()<<endl;
-	cout<<"count: "<<bTree.getNumberOfNodes()<<endl;
-
-	cout<<"preorder: ";
-	bTree.preorderTraverse(displayInt);
-	cout<<endl;
-
-	cout<<"inorder: ";
-	bTree.inorderTraverse(displayInt);
-	cout<<endl;
-
-	cout<<"postorder: ";
-	bTree.postorderTraverse(displayInt);
-	cout<<endl;
-
-	cout<<"height"<<bTree.getHeight()<<endl;
-	bTree.add(11);
-	cout<<"height"<<bTree.getHeight()<<endl;
-	bTree.add(12);
-	cout<<"height"<<bTree.getHeight()<<endl;
-
-	cout<<"count2: "<<bTree.getNumberOfNodes()<<endl;
-	bTree.clear();
-	cout<<"count3: "<<bTree.getNumberOfNodes()<<endl;
-
 
 	return 0;
 }
@@ -84,6 +53,14 @@ int main()
 void displayInt( int& intVal )
 {
 	cout<<intVal<<',';
+}
+
+void printIntFile( int& intVal )
+{
+	ofstream theFile;
+	theFile.open("output.txt", ios::app);
+	theFile<<intVal<<',';
+	theFile.close();
 }
 
 void randomizeData(int arrayPtr[], int arrSize)
